@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astra — Mercado y Estudio de impresión · Villa Clara</title>
+<meta name="description" content="Astra: mercado y estudio de impresión en Villa Clara. Pedidos por WhatsApp.">
+<link rel="icon" type="image/svg+xml" href="assets/astra-simbolo.svg">
+<meta name="theme-color" content="#06172A">
+<meta property="og:title" content="Astra — Mercado y Estudio de impresión">
+<meta property="og:description" content="Lo esencial para tu casa y tus ideas impresas en carteles, jarras y pullovers. Pedidos por WhatsApp en Villa Clara.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200..600&display=swap" rel="stylesheet">
+<!--
+  PROPUESTA D — "Cielo de Astra": modo noche, tipografía fina, productos como constelaciones,
+  órbita para explicar la marca y una trayectoria para el pedido.
+  Imágenes provisionales: Unsplash (licencia Unsplash). Iconos: Solar (Iconify, CC BY 4.0) · WhatsApp: Simple Icons.
+  El canvas solo dibuja puntos de luz (fondo de estrellas); se pausa fuera de pantalla y es estático con movimiento reducido.
+-->
+<style>
+:root{
+  --night:#06172A; --night-2:#0A2038; --navy:#0F2F50; --violet:#8B6CFF; --lav:#CBB8FF; --paper:#F5F3EF; --slate:#6B7280;
+  --ink: var(--paper);
+  --muted: color-mix(in oklch, var(--paper) 62%, var(--night));
+  --faint: color-mix(in oklch, var(--paper) 14%, transparent);
+  --hair: color-mix(in oklch, var(--paper) 16%, transparent);
+  --pad: clamp(20px, 4vw, 64px);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--night)}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--night);color:var(--ink);font-family:Inter,ui-sans-serif,sans-serif;font-size:clamp(16px,1.05vw,18px);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+p{margin:0;text-wrap:pretty}
+h1,h2,h3{margin:0;font-weight:300;letter-spacing:-.045em;line-height:.98;text-wrap:balance}
+button{font:inherit;color:inherit}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-60px;background:var(--paper);color:var(--night);padding:10px 16px;border-radius:999px;z-index:100;text-decoration:none}
+.skip:focus{top:12px}
+:focus-visible{outline:2px solid var(--lav);outline-offset:4px;border-radius:8px}
+.icon{width:1.15em;height:1.15em;flex:none;display:inline-block;vertical-align:-.2em}
+.wrap{padding-inline:var(--pad)}
+.label{font-size:.74rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--lav)}
+.pending{display:inline-block;font-size:.68em;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:.2em .6em;border-radius:999px;border:1px dashed currentColor;opacity:.7;vertical-align:.2em;margin-left:.4em}
+.accent{color:var(--lav);font-weight:200}
+
+.btn{display:inline-flex;align-items:center;gap:.65em;min-height:52px;padding:0 1.5em;border-radius:999px;background:var(--paper);color:var(--night);text-decoration:none;font-weight:500;font-size:.95rem;border:1px solid var(--paper);transition:transform .35s var(--ease),background-color .3s,color .3s,box-shadow .4s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 0 6px color-mix(in oklch,var(--lav) 22%,transparent),0 0 40px color-mix(in oklch,var(--violet) 45%,transparent)}
+.btn:active{transform:none}
+.btn--line{background:transparent;color:var(--paper);border-color:var(--hair)}
+.btn--line:hover{border-color:var(--paper)}
+
+/* Header */
+.site-header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px var(--pad);transition:background-color .4s,padding .4s var(--ease),border-color .4s;border-bottom:1px solid transparent}
+.site-header.is-scrolled{background:color-mix(in oklch,var(--night) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--faint);padding-block:12px}
+.brand img{height:28px;width:auto}
+.nav{display:flex;align-items:center;gap:clamp(18px,2.6vw,40px);font-size:.92rem}
+.nav a{text-decoration:none;color:var(--muted);transition:color .3s}
+.nav a:hover{color:var(--paper)}
+.nav .btn{color:var(--night);min-height:44px}
+.menu-btn{display:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--hair);background:transparent;cursor:pointer;align-items:center;justify-content:center}
+.menu-btn span{display:block;width:18px;height:1.5px;background:currentColor;position:relative}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:currentColor;transition:transform .3s var(--ease)}
+.menu-btn span::before{top:-6px}.menu-btn span::after{top:6px}
+.menu-open .menu-btn span{background:transparent}
+.menu-open .menu-btn span::before{transform:translateY(6px) rotate(45deg)}
+.menu-open .menu-btn span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px var(--pad) 80px;overflow:hidden;
+  background:radial-gradient(120% 80% at 50% 115%, color-mix(in oklch,var(--violet) 38%,var(--night)) 0%, transparent 55%), var(--night)}
+.sky{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.horizon{position:absolute;left:50%;bottom:-62vw;width:150vw;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;border-top:1px solid color-mix(in oklch,var(--lav) 55%,transparent);box-shadow:0 -30px 120px -40px var(--violet) inset;z-index:0;pointer-events:none}
+.hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:clamp(24px,3vw,40px);max-width:1200px}
+.hero h1{font-size:clamp(3rem,8.4vw,9.6rem);font-weight:200;letter-spacing:-.06em;line-height:.92}
+.hero h1 strong{font-weight:500}
+.hero-sub{max-width:44ch;color:var(--muted);font-size:clamp(1.02rem,1.3vw,1.22rem)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.hero-star{width:14px;height:14px;border-radius:50%;background:var(--violet);box-shadow:0 0 0 6px color-mix(in oklch,var(--violet) 25%,transparent),0 0 40px 8px var(--violet)}
+.scroll-cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:1;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:12px}
+.scroll-cue i{width:1px;height:44px;background:linear-gradient(var(--lav),transparent);display:block}
+
+/* CONSTELACIONES */
+.sky-map{position:relative;padding-block:clamp(100px,12vw,180px)}
+.map-head{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+.map-head .label{grid-column:1 / -1}
+.map-head h2{grid-column:1 / span 7;font-size:clamp(2.6rem,5.6vw,5.8rem)}
+.map-head p{grid-column:9 / span 4;color:var(--muted)}
+.scope{position:relative;height:clamp(580px,82svh,860px);margin-inline:calc(var(--pad) * -1)}
+.scope-sky{position:absolute;inset:0;width:100%;height:100%;opacity:.85}
+.map-name{position:absolute;top:0;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);z-index:2}
+.map-name b{display:block;font-size:clamp(1.3rem,2vw,1.9rem);font-weight:300;letter-spacing:-.03em;text-transform:none;color:var(--paper);margin-top:4px}
+.map-group{position:absolute;inset:0;z-index:2;pointer-events:none}
+.star{pointer-events:auto;position:absolute;transform:translate(-22px,-50%);display:flex;align-items:center;gap:12px;background:none;border:0;padding:10px;cursor:pointer;color:var(--muted);transition:color .3s}
+.star--left{flex-direction:row-reverse;transform:translate(calc(-100% + 22px),-50%)}
+.star-core{position:relative;width:24px;height:24px;flex:none;display:grid;place-items:center}
+.star-core i{width:var(--c,5px);height:var(--c,5px);border-radius:50%;background:#fff;box-shadow:0 0 6px 1px rgba(255,255,255,.8),0 0 20px 5px color-mix(in oklch,var(--lav) 40%,transparent);transition:box-shadow .5s var(--ease),transform .5s var(--ease)}
+.star-core::before,.star-core::after{content:"";position:absolute;left:50%;top:50%;width:var(--s,28px);height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);transform:translate(-50%,-50%);transition:width .6s var(--ease);animation:twinkle 4.5s ease-in-out infinite;animation-delay:var(--d,0s)}
+.star-core::after{transform:translate(-50%,-50%) rotate(90deg)}
+.star-core b{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px;border-radius:50%;border:1px solid var(--lav);opacity:0}
+@keyframes twinkle{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes pulse{0%{transform:scale(.3);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+.mag1{--c:7px;--s:52px}.mag2{--c:5px;--s:36px}.mag3{--c:3.5px;--s:24px}
+.star-label{display:flex;flex-direction:column;line-height:1.25;text-align:left}
+.star--left .star-label{text-align:right}
+.star-cat{white-space:nowrap;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:color-mix(in oklch,var(--lav) 75%,transparent)}
+.star-name{font-size:.92rem;white-space:nowrap;letter-spacing:-.01em}
+.star:hover,.star[aria-pressed="true"]{color:var(--paper)}
+.star:hover .star-core::before,.star:hover .star-core::after{width:calc(var(--s) * 1.5)}
+.star[aria-pressed="true"] .star-core::before,.star[aria-pressed="true"] .star-core::after{width:calc(var(--s) * 2.4);background:linear-gradient(90deg,transparent,var(--lav),transparent);animation:none}
+.star[aria-pressed="true"] .star-core i{transform:scale(1.5);box-shadow:0 0 0 5px color-mix(in oklch,var(--violet) 35%,transparent),0 0 34px 10px var(--violet)}
+.star[aria-pressed="true"] .star-core b{animation:pulse 2.4s ease-out infinite}
+.star--soon{cursor:default}
+.star--soon .star-core i{background:transparent;border:1px dashed var(--lav);box-shadow:none;width:9px;height:9px}
+.star--soon .star-core::before,.star--soon .star-core::after{display:none}
+.lens-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:14px;width:clamp(240px,26vw,360px);text-align:center}
+.lens{position:relative;width:100%;aspect-ratio:1}
+.lens-view{position:absolute;inset:10%;border-radius:50%;overflow:hidden;background:var(--night-2);box-shadow:0 0 0 1px var(--hair),0 0 90px -10px color-mix(in oklch,var(--violet) 70%,transparent)}
+.lens-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.18);transition:opacity .7s var(--ease),transform 1.4s var(--ease)}
+.lens-view img.is-active{opacity:1;transform:none}
+.lens-view::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,transparent 58%,color-mix(in oklch,var(--night) 70%,transparent) 100%)}
+.lens-ticks{position:absolute;inset:0;width:100%;height:100%;overflow:visible;transition:transform 1.2s var(--ease)}
+.lens-ticks circle{fill:none}
+.lens-ticks .t{stroke:color-mix(in oklch,var(--lav) 55%,transparent);stroke-width:2.2;stroke-dasharray:.35 2.79}
+.lens-ticks .t2{stroke:color-mix(in oklch,var(--lav) 85%,transparent);stroke-width:4;stroke-dasharray:.5 14.6}
+.lens-ticks .o{stroke:var(--faint);stroke-width:.4}
+.lens-ticks .mark{fill:var(--violet)}
+.lens-prog{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);overflow:visible;pointer-events:none}
+.lens-prog circle{fill:none;stroke:var(--violet);stroke-width:.8;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;opacity:0;transition:opacity .4s;filter:drop-shadow(0 0 2px var(--violet))}
+.lens-prog.is-run circle{opacity:1;animation:prog var(--t,5s) linear forwards}
+@keyframes prog{to{stroke-dashoffset:0}}
+.lens-info .label{display:block;margin-bottom:6px}
+.lens-info h3{font-size:clamp(1.4rem,2vw,1.9rem);font-weight:300;letter-spacing:-.03em}
+.lens-info p{font-size:.88rem;color:var(--muted);margin:6px auto 10px;max-width:30ch}
+.lens-info a{font-size:.88rem;display:inline-flex;align-items:center;gap:.5em;color:var(--lav);text-decoration:none}
+.lens-info a:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* ÓRBITA */
+.orbit-sec{position:relative;min-height:100svh;display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:center;padding-block:clamp(90px,10vw,140px)}
+.orbit-copy{grid-column:1 / span 5;display:flex;flex-direction:column;gap:clamp(28px,3vw,44px)}
+.orbit-copy h2{font-size:clamp(2.4rem,4.6vw,4.6rem)}
+.orbit-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--faint)}
+.orbit-list li{display:grid;grid-template-columns:3rem 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--faint);transition:opacity .5s var(--ease)}
+.orbit-list .n{font-size:.78rem;letter-spacing:.2em;color:var(--lav);padding-top:.5em}
+.orbit-list h3{font-size:clamp(1.5rem,2.2vw,2.1rem);font-weight:300}
+.orbit-list p{color:var(--muted);font-size:.95rem;margin-top:6px;max-width:40ch}
+.js-orbit .orbit-list li{opacity:.28}
+.js-orbit .orbit-list li.is-on{opacity:1}
+.orbit{grid-column:7 / -1;position:relative;aspect-ratio:1;width:100%;max-width:640px;justify-self:center}
+.orbit-ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--hair)}
+.orbit-ring--2{inset:16%;border-style:dashed;border-color:var(--faint)}
+.orbit-ring--3{inset:32%;border-color:var(--faint)}
+.orbit-core{position:absolute;inset:40%;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle, color-mix(in oklch,var(--violet) 40%,transparent), transparent 70%)}
+.orbit-core img{width:46%}
+.orbit-spin{position:absolute;inset:0}
+.planet{position:absolute;left:50%;top:50%;width:clamp(86px,9vw,124px);aspect-ratio:1;margin:calc(clamp(86px,9vw,124px) / -2) 0 0 calc(clamp(86px,9vw,124px) / -2);border-radius:50%;display:grid;place-items:center;text-align:center;font-size:.85rem;font-weight:500;letter-spacing:-.01em;background:var(--night-2);border:1px solid var(--hair);box-shadow:0 0 50px -10px color-mix(in oklch,var(--violet) 60%,transparent)}
+.planet .icon{width:24px;height:24px;color:var(--lav);margin:0 auto 6px;display:block}
+[data-planet="0"]{left:50%;top:0}
+[data-planet="1"]{left:93.3%;top:75%}
+[data-planet="2"]{left:6.7%;top:75%}
+.planet b{font-weight:500}
+
+/* TRAYECTORIA */
+.path-sec{padding-block:clamp(100px,12vw,180px);display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.path-head{grid-column:1 / span 5;align-self:start;position:sticky;top:120px;display:flex;flex-direction:column;gap:26px}
+.path-head h2{font-size:clamp(2.6rem,5vw,5rem)}
+.path-head p{color:var(--muted);max-width:38ch}
+.contact{display:flex;flex-direction:column;gap:14px;margin-top:10px;padding:24px;border:1px solid var(--faint);border-radius:22px;background:color-mix(in oklch,var(--navy) 40%,transparent)}
+.contact .phone .pending{font-size:.42em;vertical-align:.6em}
+.contact .phone{font-size:1.6rem;font-weight:300;letter-spacing:-.03em}
+.contact dl{margin:0;display:grid;gap:10px;font-size:.9rem;color:var(--muted)}
+.contact dl div{display:flex;gap:10px;align-items:center}
+.contact dt{color:var(--lav);display:flex}
+.contact dd{margin:0}
+.path{grid-column:7 / -1;position:relative;list-style:none;margin:0;padding:0 0 0 56px}
+.path-line{position:absolute;left:11px;top:8px;bottom:8px;width:1px;background:var(--faint)}
+.path-fill{position:absolute;left:11px;top:8px;width:1px;height:calc(100% - 16px);background:linear-gradient(var(--lav),var(--violet));transform-origin:top;transform:scaleY(1)}
+.comet{position:absolute;left:5px;top:8px;width:13px;height:13px;border-radius:50%;background:var(--violet);box-shadow:0 0 0 6px color-mix(in oklch,var(--violet) 25%,transparent),0 0 30px 6px var(--violet);display:none}
+.js-path .path-fill{transform:scaleY(0)}
+.js-path .comet{display:block}
+.path li{position:relative;padding-bottom:clamp(70px,9vw,130px)}
+.path li:last-child{padding-bottom:0}
+.path li::before{content:"";position:absolute;left:-49px;top:.55em;width:9px;height:9px;border-radius:50%;background:var(--night);border:1px solid var(--lav)}
+.path .n{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--lav)}
+.path h3{font-size:clamp(1.8rem,3vw,3rem);margin:10px 0 14px}
+.path p{color:var(--muted);max-width:44ch}
+.path .path-img{margin-top:24px;border-radius:20px;overflow:hidden;border:1px solid var(--faint);aspect-ratio:16/9;max-width:520px}
+.path .path-img img{width:100%;height:100%;object-fit:cover}
+
+/* FINAL */
+.final{position:relative;min-height:90svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:140px var(--pad);overflow:hidden;
+  background:radial-gradient(70% 60% at 50% 50%, color-mix(in oklch,var(--violet) 26%,var(--night)) 0%, var(--night) 70%)}
+.final .sky{opacity:.8}
+.final-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:30px}
+.final h2{font-size:clamp(3.4rem,10vw,11rem);font-weight:200;letter-spacing:-.065em;line-height:.9}
+.final h2 strong{font-weight:500}
+.final p{color:var(--muted);max-width:40ch;font-size:clamp(1.05rem,1.3vw,1.25rem)}
+
+
+/* ---------- FONDOS CON ARTE ---------- */
+.has-art{position:relative;isolation:isolate;overflow:clip}
+.has-art > *:not(.art):not(.path-head){position:relative;z-index:1}
+.path-head{z-index:1}
+.art{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 140px,#000 calc(100% - 140px),transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 140px,#000 calc(100% - 140px),transparent 100%)}
+.sky-map,.orbit-sec,.path-sec{background:var(--night)!important}
+.art .sky{opacity:.75}
+.grain{position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;background-size:220px 220px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.neb{position:absolute;border-radius:50%;will-change:transform}
+.neb--violet{background:radial-gradient(closest-side, color-mix(in oklch,var(--violet) 42%,transparent), color-mix(in oklch,var(--violet) 12%,transparent) 55%, transparent)}
+.neb--lav{background:radial-gradient(closest-side, color-mix(in oklch,var(--lav) 22%,transparent), transparent 70%)}
+.neb--navy{background:radial-gradient(closest-side, color-mix(in oklch,#2B6CB0 26%,transparent), transparent 70%)}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(4%,-6%) scale(1.12)}}
+.neb{animation:drift 26s ease-in-out infinite alternate}
+.neb:nth-of-type(2n){animation-duration:34s;animation-direction:alternate-reverse}
+
+/* Nuestro cielo: esfera celeste */
+.sky-map{background:linear-gradient(180deg,var(--night) 0%,color-mix(in oklch,var(--navy) 45%,var(--night)) 50%,var(--night) 100%)}
+.celestial{position:absolute;left:50%;top:58%;width:max(1500px,130vw);aspect-ratio:16/9;transform:translate(-50%,-50%)}
+.celestial ellipse,.celestial line{fill:none;stroke:color-mix(in oklch,var(--lav) 13%,transparent);stroke-width:1}
+.celestial .em{stroke:color-mix(in oklch,var(--lav) 26%,transparent);stroke-dasharray:2 7}
+.coords{position:absolute;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:color-mix(in oklch,var(--lav) 45%,transparent)}
+
+/* Qué es Astra: rayos y anillos */
+.orbit-sec{background:radial-gradient(80% 90% at 78% 50%, color-mix(in oklch,var(--navy) 70%,var(--night)) 0%, var(--night) 70%)}
+.flare{position:absolute;left:var(--cx,75%);top:var(--cy,50%);width:min(1500px,135vw);aspect-ratio:1;transform:translate(-50%,-50%)}
+.flare > span{position:absolute;inset:0;border-radius:50%}
+.flare-x{background:repeating-conic-gradient(from -2.4deg, transparent 0deg, color-mix(in oklch,var(--lav) 55%,transparent) 2.4deg, transparent 4.8deg 90deg);
+  -webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.55) 22%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.55) 22%,transparent 100%)}
+.flare-d{inset:20%!important;background:repeating-conic-gradient(from 43.4deg, transparent 0deg, color-mix(in oklch,var(--violet) 60%,transparent) 1.6deg, transparent 3.2deg 90deg);
+  -webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.4) 25%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.4) 25%,transparent 100%)}
+.flare-halo{inset:30%!important;background:radial-gradient(circle,color-mix(in oklch,var(--violet) 45%,transparent) 0%,transparent 34%),radial-gradient(circle,transparent 46%,color-mix(in oklch,var(--lav) 16%,transparent) 48%,transparent 52%),radial-gradient(circle,transparent 66%,color-mix(in oklch,var(--violet) 10%,transparent) 69%,transparent 74%)}
+.flare-streak{inset:auto 0!important;top:50%!important;height:90px;margin-top:-45px;border-radius:50%!important;background:radial-gradient(50% 50% at 50% 50%,color-mix(in oklch,var(--lav) 22%,transparent),transparent 70%)}
+.flare-streak::after{content:"";position:absolute;left:8%;right:8%;top:50%;height:1px;background:linear-gradient(90deg,transparent,color-mix(in oklch,var(--lav) 70%,transparent),transparent)}
+
+.flare-t{background:repeating-conic-gradient(from 13.8deg, transparent 0deg, color-mix(in oklch,var(--paper) 22%,transparent) 1.2deg, transparent 2.4deg 30deg);
+  -webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.35) 30%,transparent 92%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.35) 30%,transparent 92%)}
+.flare-v{inset:12%!important;background:repeating-conic-gradient(from 20.5deg, transparent 0deg, color-mix(in oklch,var(--violet) 45%,transparent) 3deg, transparent 6deg 60deg);
+  -webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.3) 30%,transparent 80%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.3) 30%,transparent 80%)}
+.flare-core{inset:44%!important;background:radial-gradient(circle,#fff 0%,color-mix(in oklch,var(--lav) 70%,transparent) 18%,transparent 62%);mix-blend-mode:screen}
+.ghost{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.ghost--1{width:90px;height:90px;left:calc(var(--cx,75%) - 260px);top:calc(var(--cy,50%) + 170px);background:radial-gradient(circle,transparent 55%,color-mix(in oklch,var(--lav) 20%,transparent) 70%,transparent 72%)}
+.ghost--2{width:34px;height:34px;left:calc(var(--cx,75%) - 400px);top:calc(var(--cy,50%) + 262px);background:color-mix(in oklch,var(--violet) 22%,transparent)}
+.ghost--3{width:160px;height:160px;left:calc(var(--cx,75%) - 560px);top:calc(var(--cy,50%) + 366px);background:radial-gradient(circle,color-mix(in oklch,#2B6CB0 18%,transparent),transparent 70%)}
+.ghost--4{width:18px;height:18px;left:calc(var(--cx,75%) + 150px);top:calc(var(--cy,50%) - 98px);background:color-mix(in oklch,var(--lav) 30%,transparent)}
+.glint{position:absolute;width:var(--g,40px);height:var(--g,40px);transform:translate(-50%,-50%);pointer-events:none;animation:glint 5s ease-in-out infinite;animation-delay:var(--d,0s)}
+.glint::before,.glint::after{content:"";position:absolute;left:50%;top:50%;width:100%;height:1px;background:linear-gradient(90deg,transparent,#fff,transparent);transform:translate(-50%,-50%)}
+.glint::after{transform:translate(-50%,-50%) rotate(90deg)}
+.glint i{position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;border-radius:50%;background:#fff;box-shadow:0 0 10px 3px var(--lav)}
+@keyframes glint{0%,100%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(0deg)}45%,55%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(45deg)}}
+.big-ring{position:absolute;left:var(--cx,75%);top:var(--cy,50%);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);border:1px solid color-mix(in oklch,var(--lav) 10%,transparent)}
+.big-ring--1{width:min(1000px,85vw)}
+.big-ring--2{width:min(1400px,120vw);border-style:dashed}
+.big-ring--3{width:min(1850px,160vw)}
+.ring-dot{position:absolute;width:6px;height:6px;margin:-3px;border-radius:50%;background:var(--lav);box-shadow:0 0 12px 2px var(--violet)}
+
+/* Cómo pedir: lluvia de meteoros */
+.path-sec{background:linear-gradient(180deg,var(--night) 0%,color-mix(in oklch,var(--navy) 55%,var(--night)) 60%,var(--night) 100%)}
+.meteor{position:absolute;width:clamp(120px,14vw,220px);height:1px;background:linear-gradient(90deg,var(--paper),color-mix(in oklch,var(--lav) 60%,transparent) 30%,transparent);transform:rotate(-32deg);opacity:0;animation:meteor 11s linear infinite}
+.meteor::before{content:"";position:absolute;left:-2px;top:-2px;width:5px;height:5px;border-radius:50%;background:var(--paper);box-shadow:0 0 10px 2px var(--lav)}
+@keyframes meteor{0%{opacity:0;translate:0 0}2%{opacity:1}9%{opacity:0;translate:-38vw 24vw}100%{opacity:0;translate:-38vw 24vw}}
+.meteor:nth-child(2){animation-delay:3.7s;animation-duration:13s}
+.meteor:nth-child(3){animation-delay:7.2s;animation-duration:15s}
+.meteor:nth-child(4){animation-delay:10.4s;animation-duration:12s}
+.dust{position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px, color-mix(in oklch,var(--lav) 18%,transparent) 1px, transparent 0);background-size:28px 28px;
+  -webkit-mask-image:radial-gradient(60% 50% at 75% 40%,#000,transparent);mask-image:radial-gradient(60% 50% at 75% 40%,#000,transparent);opacity:.6}
+
+@media (max-width:1024px){
+}
+@media (prefers-reduced-motion: reduce){ .meteor{display:none} }
+@media (max-width:760px){ .orbit{width:74%;margin-block:40px} }
+
+/* FOOTER — horizonte */
+.footer{position:relative;overflow:hidden;padding:clamp(70px,8vw,120px) var(--pad) 0;border-top:1px solid var(--faint);color:var(--muted);font-size:.92rem;
+  background:radial-gradient(90% 60% at 50% 100%, color-mix(in oklch,var(--violet) 30%,var(--night)) 0%, transparent 70%), var(--night)}
+.f-top{position:relative;z-index:1;display:grid;grid-template-columns:repeat(12,1fr);gap:40px 24px}
+.f-brand{grid-column:1 / span 4;display:flex;flex-direction:column;gap:22px}
+.f-brand img{width:44px;height:auto}
+.f-brand p{font-size:clamp(1.35rem,2vw,1.9rem);font-weight:300;letter-spacing:-.03em;line-height:1.15;color:var(--paper);max-width:16ch}
+.f-clock{display:flex;align-items:center;gap:10px;font-size:.82rem;letter-spacing:.06em;color:var(--muted)}
+.f-clock b{font-weight:400;color:var(--paper);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.f-clock i{width:7px;height:7px;border-radius:50%;background:#7CE3A1;box-shadow:0 0 10px #7CE3A1;display:inline-block}
+.f-col{grid-column:span 2;display:flex;flex-direction:column;gap:12px}
+.f-col h3{font-size:.72rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--lav);margin-bottom:6px}
+.f-col a{position:relative;text-decoration:none;color:var(--muted);transition:color .3s,transform .4s var(--ease);width:max-content;display:inline-flex;align-items:center;gap:10px}
+.f-col a::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--lav);opacity:0;transform:scale(0);transition:opacity .3s,transform .4s var(--ease),box-shadow .4s;margin-left:-15px}
+.f-col a:hover,.f-col a:focus-visible{color:var(--paper);transform:translateX(15px)}
+.f-col a:hover::before,.f-col a:focus-visible::before{opacity:1;transform:scale(1);box-shadow:0 0 12px 2px var(--violet)}
+.f-col span{color:var(--muted)}
+.f-contact{grid-column:span 2}
+.f-up{display:inline-flex;align-items:center;gap:12px;background:transparent;border:0;cursor:pointer;color:var(--muted);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+.f-up span:first-child{width:40px;height:40px;border-radius:50%;border:1px solid var(--hair);display:grid;place-items:center;color:var(--paper);transition:background-color .3s,border-color .3s,transform .5s var(--ease),box-shadow .4s}
+.f-up:hover span:first-child{background:var(--violet);border-color:var(--violet);transform:translateY(-3px);box-shadow:0 0 40px var(--violet)}
+.f-up:hover{color:var(--paper)}
+.f-mark{position:relative;z-index:0;margin-top:clamp(60px,8vw,120px);height:clamp(110px,17vw,270px);overflow:hidden}
+.f-mark img{width:100%;height:auto;opacity:.9;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 95%);mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 95%)}
+.f-horizon{position:absolute;left:50%;bottom:calc(clamp(150px,13vw,230px) - 200vw);width:200vw;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;border-top:1px solid color-mix(in oklch,var(--lav) 70%,transparent);box-shadow:0 -20px 90px -30px var(--violet) inset;z-index:1;pointer-events:none}
+.f-legal{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:20px 0 28px;border-top:1px solid var(--faint);font-size:.8rem;color:color-mix(in oklch,var(--paper) 50%,var(--night));background:color-mix(in oklch,var(--night) 60%,transparent)}
+@media (max-width:1024px){ .f-brand{grid-column:1 / -1} .f-col,.f-contact{grid-column:span 6} }
+@media (max-width:520px){ .f-contact{grid-column:1 / -1} .f-top{gap:36px 16px} }
+
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .12em .2em;margin:0 -.12em -.2em}
+.wi{display:inline-block;will-change:transform}
+
+@media (max-width:1024px){
+  .map-head h2,.map-head p{grid-column:1 / -1}
+  .orbit-copy,.orbit{grid-column:1 / -1}
+  .orbit{max-width:440px}
+  .path-head,.path{grid-column:1 / -1}
+  .path-head{position:static}
+  .path{margin-top:40px}
+}
+@media (max-width:820px){
+  .scope{height:auto;margin-inline:0;display:flex;flex-direction:column;gap:18px}
+  .map-name{position:static;text-align:left!important}
+  .lens-wrap{position:static;transform:none;width:min(100%,320px);margin:0 auto;order:0}
+  .map-name--a{order:1}.map-group--a{order:2}.map-name--b{order:3}.map-group--b{order:4}
+  .map-group{position:static;display:flex;flex-wrap:wrap;gap:6px 8px;pointer-events:auto}
+  .star{position:static;transform:none!important;flex-direction:row!important;border:1px solid var(--faint);border-radius:999px;padding:6px 14px 6px 6px}
+  .star--left .star-label{text-align:left}
+  .star-core::before,.star-core::after{max-width:30px}
+}
+@media (max-width:760px){
+  .nav{position:fixed;inset:0;background:var(--night);flex-direction:column;justify-content:center;gap:28px;font-size:1.5rem;transform:translateY(-100%);transition:transform .6s var(--ease);visibility:hidden}
+  .nav a{color:var(--paper)}
+  .menu-open .nav{transform:none;visibility:visible}
+  .menu-btn{display:inline-flex;position:relative;z-index:2}
+  .horizon{bottom:-120vw;width:240vw}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <a class="brand" href="#top" aria-label="Astra, inicio"><img src="assets/astra-logo-horizontal-negativo.svg" alt="Astra" width="99" height="30"></a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><span></span></button>
+  <nav class="nav" id="nav" aria-label="Principal">
+    <a href="#cielo">Productos</a>
+    <a href="#orbita">Qué es Astra</a>
+    <a href="#pedir">Cómo pedir</a>
+    <a class="btn" href="https://wa.me/5350000000?text=Hola%20Astra%2C%20quiero%20hacer%20un%20pedido." target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52s.198-.298.298-.497c.099-.198.05-.371-.025-.52s-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51a13 13 0 0 0-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074s2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413s.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.82 11.82 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413"/></svg> WhatsApp</a>
+  </nav>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <canvas class="sky" data-sky aria-hidden="true"></canvas>
+    <div class="horizon" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <span class="hero-star" aria-hidden="true" data-intro></span>
+      <span class="label" data-intro>Mercado y estudio de impresión · Villa Clara</span>
+      <h1 id="hero-title" data-split>Lo que buscas y lo que <strong>imaginas</strong>, bajo una misma estrella.</h1>
+      <p class="hero-sub" data-intro>Lo esencial para tu casa y tus ideas impresas en carteles, jarras y pullovers. Todo se pide por WhatsApp.</p>
+      <div class="hero-ctas" data-intro>
+        <a class="btn" href="https://wa.me/5350000000?text=Hola%20Astra%2C%20quiero%20hacer%20un%20pedido." target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52s.198-.298.298-.497c.099-.198.05-.371-.025-.52s-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51a13 13 0 0 0-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074s2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413s.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.82 11.82 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413"/></svg> Hacer un pedido</a>
+        <a class="btn btn--line" href="#cielo">Explorar productos <svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12H20M14 18L20 12L14 6"/></svg></a>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true" data-intro>Baja<i></i></div>
+  </section>
+
+  <!-- CONSTELACIONES -->
+  <section class="sky-map wrap has-art" id="cielo" aria-labelledby="map-title">
+    <div class="art" aria-hidden="true">
+      <canvas class="sky" data-sky data-density=".55"></canvas>
+      <svg class="celestial" data-celestial viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet">
+        <ellipse cx="800" cy="450" rx="760" ry="430"/><ellipse cx="800" cy="450" rx="560" ry="430"/><ellipse cx="800" cy="450" rx="340" ry="430"/><ellipse cx="800" cy="450" rx="120" ry="430"/>
+        <ellipse cx="800" cy="450" rx="760" ry="300"/><ellipse cx="800" cy="450" rx="760" ry="150"/>
+        <line x1="40" y1="450" x2="1560" y2="450" class="em"/><ellipse class="em" cx="800" cy="450" rx="760" ry="60" transform="rotate(-14 800 450)"/>
+      </svg>
+      <span class="neb neb--violet" style="width:62vw;aspect-ratio:1;left:-18vw;top:-10%"></span>
+      <span class="neb neb--navy" style="width:70vw;aspect-ratio:1;right:-22vw;bottom:-30%"></span>
+      <span class="neb neb--lav" style="width:30vw;aspect-ratio:1;left:40%;top:30%"></span>
+      <span class="coords" style="left:var(--pad);bottom:40px">22° 24′ N · 79° 57′ O</span>
+      <span class="coords" style="right:var(--pad);top:120px">Villa Clara, Cuba</span>
+      <span class="grain"></span>
+    </div>
+    <div class="map-head">
+      <span class="label" data-reveal>Nuestro cielo</span>
+      <h2 id="map-title" data-split>Mira de cerca <span class="accent">nuestro cielo.</span></h2>
+      <p data-reveal>Cada estrella es algo que encuentras en Astra. Elige una y mírala de cerca.</p>
+    </div>
+    <div class="scope" data-map>
+      <span class="map-name map-name--a" style="left:var(--pad)">Estrellas del<b>Mercado</b></span>
+      <span class="map-name map-name--b" style="right:var(--pad);text-align:right">Estrellas del<b>Estudio</b></span>
+      <div class="map-group map-group--a" role="group" aria-label="Mercado">
+        <button class="star mag1" type="button" style="left:11%;top:30%;--d:0s" data-star="alimentos" aria-pressed="true"><span class="star-core"><i></i><b></b></span><span class="star-label"><span class="star-cat">Mercado M1</span><span class="star-name">Alimentos</span></span></button>
+        <button class="star mag2" type="button" style="left:25%;top:60%;--d:1.3s" data-star="aseo" aria-pressed="false"><span class="star-core"><i></i><b></b></span><span class="star-label"><span class="star-cat">Mercado M2</span><span class="star-name">Aseo personal</span></span></button>
+        <button class="star mag3" type="button" style="left:12%;top:80%;--d:2.1s" data-star="hogar" aria-pressed="false"><span class="star-core"><i></i><b></b></span><span class="star-label"><span class="star-cat">Mercado M3</span><span class="star-name">Hogar y limpieza</span></span></button>
+        <span class="star mag3 star--soon" style="left:30%;top:24%"><span class="star-core"><i></i></span><span class="star-label"><span class="star-cat">Mercado · pronto</span><span class="star-name">Electrodomésticos</span></span></span>
+      </div>
+      <div class="map-group map-group--b" role="group" aria-label="Estudio">
+        <button class="star mag2" type="button" style="left:71%;top:26%;--d:0.6s" data-star="carteles" aria-pressed="false"><span class="star-core"><i></i><b></b></span><span class="star-label"><span class="star-cat">Estudio E1</span><span class="star-name">Carteles</span></span></button>
+        <button class="star mag1 star--left" type="button" style="left:88%;top:46%;--d:1.8s" data-star="jarras" aria-pressed="false"><span class="star-core"><i></i><b></b></span><span class="star-label"><span class="star-cat">Estudio E2</span><span class="star-name">Jarras</span></span></button>
+        <button class="star mag3 star--left" type="button" style="left:91%;top:22%;--d:2.7s" data-star="pullovers" aria-pressed="false"><span class="star-core"><i></i><b></b></span><span class="star-label"><span class="star-cat">Estudio E3</span><span class="star-name">Pullovers</span></span></button>
+        <button class="star mag2" type="button" style="left:73%;top:74%;--d:0.9s" data-star="camisetas" aria-pressed="false"><span class="star-core"><i></i><b></b></span><span class="star-label"><span class="star-cat">Estudio E4</span><span class="star-name">Camisetas</span></span></button>
+        <button class="star mag3 star--left" type="button" style="left:91%;top:82%;--d:3.2s" data-star="marca" aria-pressed="false"><span class="star-core"><i></i><b></b></span><span class="star-label"><span class="star-cat">Estudio E5</span><span class="star-name">Tu marca</span></span></button>
+      </div>
+      <div class="lens-wrap" aria-live="polite">
+        <div class="lens">
+          <div class="lens-view">
+            <img data-img="alimentos" class="is-active" src="img/mercado-frescos.jpg" alt="Frutas y verduras frescas" width="1200" height="900" loading="lazy">
+            <img data-img="aseo" src="img/mercado-aseo.jpg" alt="Barras de jabón" width="1000" height="667" loading="lazy">
+            <img data-img="hogar" src="img/mercado-pasillo.jpg" alt="Pasillo con productos del hogar" width="1200" height="900" loading="lazy">
+            <img data-img="carteles" src="img/estudio-carteles.jpg" alt="Carteles enmarcados" width="1000" height="667" loading="lazy">
+            <img data-img="jarras" src="img/estudio-jarras.jpg" alt="Jarra blanca" width="1000" height="667" loading="lazy">
+            <img data-img="pullovers" src="img/estudio-pullovers.jpg" alt="Pullover gris" width="1000" height="1500" loading="lazy">
+            <img data-img="camisetas" src="img/estudio-camisetas.jpg" alt="Camiseta negra con texto impreso" width="1000" height="1501" loading="lazy">
+            <img data-img="marca" src="img/estudio-logo.jpg" alt="Camiseta con un logo pequeño" width="1000" height="1400" loading="lazy">
+          </div>
+          <svg class="lens-ticks" data-ticks viewBox="0 0 100 100" aria-hidden="true">
+            <circle class="o" cx="50" cy="50" r="49.5"/><circle class="t" cx="50" cy="50" r="47"/><circle class="t2" cx="50" cy="50" r="46.5"/><circle class="o" cx="50" cy="50" r="44"/>
+            <circle class="mark" cx="50" cy="1.6" r="1.4"/>
+          </svg>
+          <svg class="lens-prog" data-prog viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="49.5" pathLength="100"/></svg>
+        </div>
+        <div class="lens-info">
+          <span class="label" data-d-group>Mercado · M1</span>
+          <h3 data-d-title>Alimentos</h3>
+          <p data-d-text>Granos, conservas, aceite, pastas y lo básico de la cocina.</p>
+          <a href="https://wa.me/5350000000?text=Hola%20Astra%2C%20quiero%20hacer%20un%20pedido." target="_blank" rel="noopener" data-d-link>Pedir por WhatsApp <svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M18 15V6H9"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÓRBITA -->
+  <section class="orbit-sec wrap has-art" id="orbita" aria-labelledby="orbit-title" data-orbit-sec>
+    <div class="art" aria-hidden="true">
+      <canvas class="sky" data-sky data-density=".5"></canvas>
+      <div class="flare" data-flare><span class="flare-halo"></span><span class="flare-t" data-ft></span><span class="flare-v" data-fv></span><span class="flare-x" data-fx></span><span class="flare-d" data-fd></span><span class="flare-streak"></span><span class="flare-core"></span></div>
+      <span class="ghost ghost--1"></span><span class="ghost ghost--2"></span><span class="ghost ghost--3"></span><span class="ghost ghost--4"></span>
+      <span class="glint" style="left:calc(var(--cx,75%) - 220px);top:calc(var(--cy,50%) - 190px);--g:46px;--d:.4s"><i></i></span>
+      <span class="glint" style="left:calc(var(--cx,75%) + 250px);top:calc(var(--cy,50%) + 150px);--g:34px;--d:1.9s"><i></i></span>
+      <span class="glint" style="left:calc(var(--cx,75%) + 120px);top:calc(var(--cy,50%) - 300px);--g:26px;--d:3.1s"><i></i></span>
+      <span class="glint" style="left:calc(var(--cx,75%) - 330px);top:calc(var(--cy,50%) + 60px);--g:30px;--d:2.5s"><i></i></span>
+      <span class="glint" style="left:calc(var(--cx,75%) + 340px);top:calc(var(--cy,50%) - 60px);--g:22px;--d:4.2s"><i></i></span>
+      <div class="big-ring big-ring--1"></div>
+      <div class="big-ring big-ring--2" data-bigring><span class="ring-dot" style="left:50%;top:0"></span><span class="ring-dot" style="left:0;top:50%"></span></div>
+      <div class="big-ring big-ring--3"></div>
+      <span class="neb neb--violet" style="width:48vw;aspect-ratio:1;left:51%;top:50%;margin:-24vw 0 0 0"></span>
+      <span class="neb neb--navy" style="width:50vw;aspect-ratio:1;left:-20vw;top:-20%"></span>
+      <span class="grain"></span>
+    </div>
+    <div class="orbit-copy">
+      <span class="label">Qué es Astra</span>
+      <h2 id="orbit-title" data-split>Todo gira alrededor <span class="accent">de lo que necesitas.</span></h2>
+      <ol class="orbit-list">
+        <li class="is-on"><span class="n">01</span><div><h3>Un mercado cercano</h3><p>Alimentos, aseo y productos del hogar en Villa Clara, con el precio confirmado antes de pagar.</p></div></li>
+        <li><span class="n">02</span><div><h3>Un estudio de impresión</h3><p>Tu diseño, tu foto o tu logo en carteles, jarras, pullovers y camisetas, con vista previa antes de imprimir.</p></div></li>
+        <li><span class="n">03</span><div><h3>Una sola conversación</h3><p>Pides del mercado y encargas tu impresión en el mismo chat de WhatsApp.</p></div></li>
+      </ol>
+    </div>
+    <div class="orbit" aria-hidden="true">
+      <div class="orbit-ring"></div><div class="orbit-ring orbit-ring--2"></div><div class="orbit-ring orbit-ring--3"></div>
+      <div class="orbit-core"><img src="assets/astra-simbolo-negativo.svg" alt="" width="100" height="114"></div>
+      <div class="orbit-spin" data-spin>
+        <div class="planet" data-planet="0"><span><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="M9 9H9.0001"/><path stroke-linejoin="round" d="M15 9H15.0001"/><path d="M3.79424 12.0291C4.33141 9.34329 4.59999 8.00036 5.48746 7.13543C5.65149 6.97557 5.82894 6.8301 6.01786 6.70061C7.04004 6 8.40956 6 11.1486 6H12.8515C15.5906 6 16.9601 6 17.9823 6.70061C18.1712 6.8301 18.3486 6.97557 18.5127 7.13543C19.4001 8.00036 19.6687 9.34329 20.2059 12.0291C20.9771 15.8851 21.3627 17.8131 20.475 19.1793C20.3143 19.4267 20.1267 19.6555 19.9157 19.8616C18.7501 21 16.7839 21 12.8515 21H11.1486C7.21622 21 5.25004 21 4.08447 19.8616C3.87342 19.6555 3.68582 19.4267 3.5251 19.1793C2.63744 17.8131 3.02304 15.8851 3.79424 12.0291Z"/><path d="M9 6.01973V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V6.01973"/></g></svg><b>Mercado</b></span></div>
+        <div class="planet" data-planet="1"><span><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M17.9827 6C17.9359 4.44655 17.7626 3.51998 17.1213 2.87868C16.2426 2 14.8284 2 12 2C9.17157 2 7.75736 2 6.87868 2.87868C6.23738 3.51998 6.06413 4.44655 6.01732 6M18 12V16C18 18.8284 18 20.2426 17.1213 21.1213C16.2426 22 14.8284 22 12 22C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V12"/><path d="M19.5 12.4434C17.8729 11.7128 15.4115 11.0003 12 11.0003C8.58854 11.0003 6.12712 11.7128 4.5 12.4434"/><path d="M17.9832 17.9827C17.9888 17.9827 17.9944 17.9827 18 17.9827C19.5535 17.9359 20.48 17.7626 21.1213 17.1213C22 16.2426 22 14.8284 22 12C22 9.17157 22 7.75736 21.1213 6.87868C20.2426 6 18.8284 6 16 6H8C5.17157 6 3.75736 6 2.87868 6.87868C2 7.75736 2 9.17157 2 12C2 14.8284 2 16.2426 2.87868 17.1213C3.51998 17.7626 4.44655 17.9359 6 17.9827H6.01681"/></g></svg><b>Estudio</b></span></div>
+        <div class="planet" data-planet="2"><span><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z"/><path stroke-linejoin="round" d="M8 12H8.009M11.991 12H12M15.991 12H16"/></g></svg><b>WhatsApp</b></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAYECTORIA -->
+  <section class="path-sec wrap has-art" id="pedir" aria-labelledby="path-title">
+    <div class="art" aria-hidden="true">
+      <canvas class="sky" data-sky data-density=".5"></canvas>
+      <div class="dust"></div>
+      <div style="position:absolute;inset:0">
+        <span class="meteor" style="left:88%;top:8%"></span><span class="meteor" style="left:70%;top:22%"></span><span class="meteor" style="left:96%;top:44%"></span><span class="meteor" style="left:60%;top:4%"></span>
+      </div>
+      <span class="neb neb--violet" style="width:55vw;aspect-ratio:1;left:-22vw;top:35%"></span>
+      <span class="neb neb--lav" style="width:40vw;aspect-ratio:1;right:-10vw;top:-10%"></span>
+      <span class="grain"></span>
+    </div>
+    <div class="path-head">
+      <span class="label">Cómo pedir</span>
+      <h2 id="path-title" data-split>De tu mensaje <span class="accent">a tu puerta.</span></h2>
+      <p data-reveal>Tres pasos y una sola conversación. Sin formularios ni cuentas.</p>
+      <div class="contact" data-reveal>
+        <span class="label">WhatsApp</span>
+        <span class="phone">+53 5 000 0000<span class="pending">pendiente</span></span>
+        <dl>
+          <div><dt><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M4 10.1433C4 5.64588 7.58172 2 12 2C16.4183 2 20 5.64588 20 10.1433C20 14.6055 17.4467 19.8124 13.4629 21.6744C12.5343 22.1085 11.4657 22.1085 10.5371 21.6744C6.55332 19.8124 4 14.6055 4 10.1433Z"/><circle cx="12" cy="10" r="3"/></g></svg></dt><dd>Villa Clara</dd></div>
+          <div><dt><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linejoin="round" d="M12 8V12L14.5 14.5"/></g></svg></dt><dd>Horario por definir <span class="pending">pendiente</span></dd></div>
+          <div><dt><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M17.4142 10.4142C18 9.82843 18 8.88562 18 7C18 5.11438 18 4.17157 17.4142 3.58579M17.4142 3.58579C16.8284 3 15.8856 3 14 3L10 3C8.11438 3 7.17157 3 6.58579 3.58579C6 4.17157 6 5.11438 6 7C6 8.88562 6 9.82843 6.58579 10.4142C7.17157 11 8.11438 11 10 11H14C15.8856 11 16.8284 11 17.4142 10.4142M17.4142 10.4142V10.4142ZM17.4142 3.58579V3.58579ZM6.58579 3.58579V3.58579ZM6.58579 10.4142V10.4142Z"/><path d="M13 7C13 7.55228 12.5523 8 12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7Z"/><path d="M18 6C16.3431 6 15 4.65685 15 3"/><path d="M18 8C16.3431 8 15 9.34315 15 11"/><path d="M6 6C7.65685 6 9 4.65685 9 3"/><path d="M6 8C7.65685 8 9 9.34315 9 11"/><path d="M5 20.3884H7.25993C8.27079 20.3884 9.29253 20.4937 10.2763 20.6964C12.0166 21.0549 13.8488 21.0983 15.6069 20.8138C16.4738 20.6734 17.326 20.4589 18.0975 20.0865C18.7939 19.7504 19.6469 19.2766 20.2199 18.7459C20.7921 18.216 21.388 17.3487 21.8109 16.6707C22.1736 16.0894 21.9982 15.3762 21.4245 14.943C20.7873 14.4619 19.8417 14.462 19.2046 14.9433L17.3974 16.3084C16.697 16.8375 15.932 17.3245 15.0206 17.4699C14.911 17.4874 14.7962 17.5033 14.6764 17.5172M12.7518 17.5326C13.4312 17.5968 14.0434 17.5829 14.5668 17.5292C14.6038 17.5254 14.6403 17.5214 14.6764 17.5172M14.6764 17.5172C14.8222 17.486 14.9669 17.396 15.1028 17.2775C15.746 16.7161 15.7866 15.77 15.2285 15.1431C15.0991 14.9977 14.9475 14.8764 14.7791 14.7759C11.9817 13.1074 7.62942 14.3782 5 16.2429M14.6764 17.5172C14.6399 17.525 14.6033 17.5292 14.5668 17.5292"/><rect width="3" height="8" x="2" y="14" rx="1.5"/></g></svg></dt><dd>Pago por definir <span class="pending">pendiente</span></dd></div>
+        </dl>
+        <a class="btn" href="https://wa.me/5350000000?text=Hola%20Astra%2C%20quiero%20hacer%20un%20pedido." target="_blank" rel="noopener" style="justify-content:center"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52s.198-.298.298-.497c.099-.198.05-.371-.025-.52s-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51a13 13 0 0 0-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074s2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413s.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.82 11.82 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413"/></svg> Escribir ahora</a>
+      </div>
+    </div>
+    <ol class="path" data-path>
+      <span class="path-line" aria-hidden="true"></span><span class="path-fill" aria-hidden="true"></span><span class="comet" aria-hidden="true"></span>
+      <li data-reveal><span class="n">Paso 01</span><h3>Nos escribes</h3><p>Tu lista del mercado, la foto para tu jarra o el logo para tus camisetas. Todo por WhatsApp.</p>
+        <div class="path-img"><img src="img/mercado-despensa.jpg" alt="Bolsas con productos de despensa" width="1000" height="1778" loading="lazy"></div></li>
+      <li data-reveal><span class="n">Paso 02</span><h3>Confirmamos</h3><p>Te decimos qué hay, cuánto cuesta y, si es una impresión, te mostramos la vista previa antes de hacerla.</p>
+        <div class="path-img"><img src="img/hero-estudio.jpg" alt="Camisetas de colores dobladas" width="1400" height="2489" loading="lazy"></div></li>
+      <li data-reveal><span class="n">Paso 03</span><h3>Te lo llevamos</h3><p>Coordinamos la entrega en Villa Clara o lo pasas a recoger.</p></li>
+    </ol>
+  </section>
+
+  <!-- FINAL -->
+  <section class="final" aria-labelledby="final-title">
+    <canvas class="sky" data-sky aria-hidden="true"></canvas>
+    <div class="final-inner">
+      <span class="hero-star" aria-hidden="true"></span>
+      <h2 id="final-title" data-split>Pide un <strong>deseo.</strong></h2>
+      <p data-reveal>Del mercado o del estudio: escríbelo en WhatsApp y nosotros nos encargamos del resto.</p>
+      <div data-reveal><a class="btn" href="https://wa.me/5350000000?text=Hola%20Astra%2C%20quiero%20hacer%20un%20pedido." target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52s.198-.298.298-.497c.099-.198.05-.371-.025-.52s-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51a13 13 0 0 0-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074s2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413s.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.82 11.82 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413"/></svg> Escribir a Astra</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" aria-labelledby="footer-title">
+  <h2 id="footer-title" class="sr-only">Pie de página</h2>
+  <div class="f-top">
+    <div class="f-brand">
+      <img src="assets/astra-simbolo-negativo.svg" alt="" width="100" height="114">
+      <p>Lo que buscas y lo que imaginas, bajo una misma estrella.</p>
+      <span class="f-clock"><i aria-hidden="true"></i>Villa Clara · <b data-clock>--:--</b></span>
+    </div>
+    <nav class="f-col" aria-label="Explorar">
+      <h3>Explorar</h3>
+      <a href="#cielo">Productos</a><a href="#orbita">Qué es Astra</a><a href="#pedir">Cómo pedir</a>
+    </nav>
+    <nav class="f-col" aria-label="Mercado">
+      <h3>Mercado</h3>
+      <a href="#cielo" data-go="alimentos">Alimentos</a><a href="#cielo" data-go="aseo">Aseo personal</a><a href="#cielo" data-go="hogar">Hogar y limpieza</a>
+    </nav>
+    <nav class="f-col" aria-label="Estudio">
+      <h3>Estudio</h3>
+      <a href="#cielo" data-go="carteles">Carteles</a><a href="#cielo" data-go="jarras">Jarras</a><a href="#cielo" data-go="pullovers">Pullovers</a><a href="#cielo" data-go="camisetas">Camisetas</a>
+    </nav>
+    <div class="f-col f-contact">
+      <h3>Contacto</h3>
+      <a href="https://wa.me/5350000000?text=Hola%20Astra%2C%20quiero%20hacer%20un%20pedido." target="_blank" rel="noopener">WhatsApp</a>
+      <span>+53 5 000 0000 <span class="pending">pendiente</span></span>
+      <span>Villa Clara, Cuba</span>
+    </div>
+  </div>
+  <div class="f-mark" aria-hidden="true"><img src="assets/astra-logo-horizontal-negativo.svg" alt="" width="379" height="114"></div>
+  <div class="f-horizon" aria-hidden="true"></div>
+  <div class="f-legal"><span>© 2026 Astra. Todos los derechos reservados. · Fotos provisionales: Unsplash</span><button class="f-up" type="button" data-up aria-label="Volver arriba"><span><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 20L12 4M6 10L12 4L18 10"/></svg></span><span aria-hidden="true">Volver al cielo</span></button></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(pointer: fine)').matches;
+  var WA = document.querySelector('[data-d-link]').getAttribute('href').split('?')[0];
+
+  /* Header + menú */
+  var header = document.querySelector('.site-header');
+  var menuBtn = document.querySelector('.menu-btn');
+  function onScroll(){ header.classList.toggle('is-scrolled', window.scrollY > 30); }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  function setMenu(open){
+    document.body.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+    menuBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
+  }
+  menuBtn.addEventListener('click', function(){ setMenu(!document.body.classList.contains('menu-open')); });
+  document.querySelectorAll('.nav a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setMenu(false); });
+
+  /* Cielo de estrellas (solo puntos de luz) */
+  document.querySelectorAll('[data-sky]').forEach(function(cv){
+    var ctx = cv.getContext('2d'); if (!ctx) return;
+    var stars = [], w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5), raf = null, visible = false, mx = 0, my = 0, tx = 0, ty = 0;
+    function resize(){
+      var r = cv.getBoundingClientRect(); w = r.width; h = r.height;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
+      var dens = parseFloat(cv.dataset.density || '1'); var n = Math.min(240, Math.round(w * h / 7000 * dens)); stars = [];
+      for (var i = 0; i < n; i++) stars.push({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.3 + .25, a: Math.random() * .7 + .2, p: Math.random() * 6.28, s: Math.random() * .8 + .2, d: Math.random() * .9 + .1 });
+      draw(0);
+    }
+    function draw(t){
+      ctx.clearRect(0,0,w,h);
+      tx += (mx - tx) * .05; ty += (my - ty) * .05;
+      for (var i = 0; i < stars.length; i++){
+        var s = stars[i];
+        var tw = reduce ? s.a : s.a * (.65 + .35 * Math.sin(t * .001 * s.s + s.p));
+        ctx.globalAlpha = tw;
+        ctx.fillStyle = s.r > 1.2 ? '#CBB8FF' : '#F5F3EF';
+        ctx.beginPath(); ctx.arc(s.x + tx * s.d * 18, s.y + ty * s.d * 18, s.r, 0, 6.2832); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+    function loop(t){ draw(t); raf = requestAnimationFrame(loop); }
+    function start(){ if (!reduce && !raf && visible && !document.hidden) raf = requestAnimationFrame(loop); }
+    function stop(){ if (raf) cancelAnimationFrame(raf); raf = null; }
+    new IntersectionObserver(function(es){ visible = es[0].isIntersecting; visible ? start() : stop(); }).observe(cv);
+    document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+    if (fine && !reduce){
+      var last = 0;
+      cv.parentElement.addEventListener('pointermove', function(e){
+        var now = performance.now(); if (now - last < 32) return; last = now;
+        var r = cv.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width - .5; my = (e.clientY - r.top) / r.height - .5;
+      });
+      cv.parentElement.addEventListener('pointerleave', function(){ mx = 0; my = 0; });
+    }
+    var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(resize, 150); });
+    resize();
+  });
+
+  /* Constelaciones: detalle por estrella */
+  var info = {
+    alimentos: ['Alimentos','Mercado','Granos, conservas, aceite, pastas y lo básico de la cocina.','Hola Astra, quiero hacer un pedido de alimentos.'],
+    aseo: ['Aseo personal','Mercado','Jabones, champú, pasta dental y cuidado diario.','Hola Astra, quiero productos de aseo personal.'],
+    hogar: ['Hogar y limpieza','Mercado','Detergentes, papel y lo que mantiene la casa en orden.','Hola Astra, quiero productos de hogar y limpieza.'],
+    carteles: ['Carteles','Estudio','Para tu sala, tu cuarto o la vidriera de tu negocio.','Hola Astra, quiero imprimir un cartel.'],
+    jarras: ['Jarras','Estudio','Un nombre, una foto o una frase en el regalo que se usa todos los días.','Hola Astra, quiero una jarra personalizada.'],
+    pullovers: ['Pullovers','Estudio','Tu diseño al frente, en la espalda o en ambos.','Hola Astra, quiero un pullover impreso.'],
+    camisetas: ['Camisetas','Estudio','Para eventos, equipos, familias o una sola pieza única.','Hola Astra, quiero camisetas impresas.'],
+    marca: ['Tu marca','Estudio','Uniformes y piezas con el logo de tu emprendimiento.','Hola Astra, quiero piezas con el logo de mi negocio.']
+  };
+  var starsBtns = document.querySelectorAll('[data-star]');
+  var dT = document.querySelector('[data-d-title]'), dG = document.querySelector('[data-d-group]'), dX = document.querySelector('[data-d-text]'), dL = document.querySelector('[data-d-link]');
+  var rot = 0;
+  function select(key){
+    var d = info[key]; if (!d) return;
+    if (document.querySelector('[data-star="' + key + '"]').getAttribute('aria-pressed') === 'true') return;
+    starsBtns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.star === key); });
+    document.querySelectorAll('[data-img]').forEach(function(i){ i.classList.toggle('is-active', i.dataset.img === key); });
+    var btn = document.querySelector('[data-star="' + key + '"] .star-cat');
+    dT.textContent = d[0]; dG.textContent = btn ? btn.textContent : d[1]; dX.textContent = d[2];
+    rot += 45; var tk = document.querySelector('[data-ticks]'); if (tk) tk.style.transform = 'rotate(' + rot + 'deg)';
+    dL.href = WA + '?text=' + encodeURIComponent(d[3]);
+  }
+  starsBtns.forEach(function(b){
+    b.addEventListener('click', function(){ select(b.dataset.star); });
+    if (fine) b.addEventListener('mouseenter', function(){ select(b.dataset.star); });
+  });
+
+  /* Footer: hora local, volver arriba y accesos a estrellas */
+  var clock = document.querySelector('[data-clock]');
+  function tick(){ try { clock.textContent = new Intl.DateTimeFormat('es-CU', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Havana' }).format(new Date()); } catch(e){ clock.textContent = ''; } }
+  tick(); setInterval(tick, 30000);
+  document.querySelector('[data-up]').addEventListener('click', function(){ if (window.__lenis) window.__lenis.scrollTo(0); else window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
+  document.querySelectorAll('[data-go]').forEach(function(a){ a.addEventListener('click', function(){ select(a.dataset.go); }); });
+
+  /* Recorrido automático entre estrellas; el usuario siempre tiene prioridad */
+  (function(){
+    var scope = document.querySelector('[data-map]'); if (!scope || reduce) return;
+    var prog = scope.querySelector('[data-prog]');
+    var order = Array.prototype.map.call(starsBtns, function(b){ return b.dataset.star; });
+    var DUR = 5000, timer = null, resumeT = null, inView = false, userHold = false;
+    function current(){ var b = scope.querySelector('[data-star][aria-pressed="true"]'); return b ? order.indexOf(b.dataset.star) : 0; }
+    function runProg(){ prog.classList.remove('is-run'); void prog.getBoundingClientRect(); prog.style.setProperty('--t', DUR + 'ms'); prog.classList.add('is-run'); }
+    function stopProg(){ prog.classList.remove('is-run'); }
+    function schedule(){
+      clearTimeout(timer);
+      if (!inView || userHold || document.hidden) { stopProg(); return; }
+      runProg();
+      timer = setTimeout(function(){ select(order[(current() + 1) % order.length]); schedule(); }, DUR);
+    }
+    function hold(){ userHold = true; clearTimeout(timer); clearTimeout(resumeT); stopProg(); }
+    function release(delay){ clearTimeout(resumeT); resumeT = setTimeout(function(){ userHold = false; schedule(); }, delay); }
+    scope.addEventListener('pointerenter', function(e){ if (e.pointerType === 'mouse') hold(); });
+    scope.addEventListener('pointerleave', function(e){ if (e.pointerType === 'mouse') release(2500); });
+    scope.addEventListener('pointerdown', function(e){ if (e.pointerType !== 'mouse'){ hold(); release(8000); } });
+    scope.addEventListener('focusin', hold);
+    scope.addEventListener('focusout', function(){ if (!scope.contains(document.activeElement)) release(2500); });
+    new IntersectionObserver(function(es){ inView = es[0].isIntersecting; schedule(); }, { threshold: .35 }).observe(scope);
+    document.addEventListener('visibilitychange', schedule);
+  })();
+
+  /* El destello nace exactamente del centro del símbolo */
+  (function(){
+    var sec = document.getElementById('orbita'), core = sec.querySelector('.orbit-core img');
+    function alignFlare(){
+      var c = core.getBoundingClientRect(), r = sec.getBoundingClientRect();
+      sec.style.setProperty('--cx', (c.left + c.width / 2 - r.left) + 'px');
+      sec.style.setProperty('--cy', (c.top + c.height / 2 - r.top) + 'px');
+    }
+    alignFlare(); window.addEventListener('resize', alignFlare); window.addEventListener('load', alignFlare);
+    if (window.ResizeObserver) new ResizeObserver(alignFlare).observe(sec);
+    window.__alignFlare = alignFlare;
+  })();
+
+  if (reduce || !window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var label = el.textContent.replace(/\s+/g,' ').trim();
+    var frag = document.createElement('span'); frag.setAttribute('aria-hidden','true');
+    (function walk(node, target){
+      node.childNodes.forEach(function(n){
+        if (n.nodeType === 3){
+          n.textContent.split(/(\s+)/).forEach(function(part){
+            if (!part) return;
+            if (/^\s+$/.test(part)){ target.appendChild(document.createTextNode(' ')); return; }
+            var w = document.createElement('span'); w.className = 'w';
+            var i = document.createElement('span'); i.className = 'wi'; i.textContent = part;
+            w.appendChild(i); target.appendChild(w);
+          });
+        } else { var c = n.cloneNode(false); target.appendChild(c); walk(n, c); }
+      });
+    })(el, frag);
+    var sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = label;
+    el.textContent = ''; el.appendChild(sr); el.appendChild(frag);
+  });
+
+  var lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+  window.__lenis = lenis;
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+  gsap.ticker.lagSmoothing(0);
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href'); var target = document.querySelector(id);
+      if (!target) return; e.preventDefault(); lenis.scrollTo(target, { offset: id === '#top' ? 0 : -60 });
+    });
+  });
+
+  /* Intro: la estrella se enciende y el titular sale de la oscuridad */
+  gsap.timeline({ defaults: { ease: 'expo.out' } })
+    .from('.sky', { autoAlpha: 0, duration: 2.4, ease: 'power2.out' }, 0)
+    .from('.horizon', { yPercent: 12, autoAlpha: 0, duration: 2.2 }, .1)
+    .from('.hero-star', { scale: 0, duration: 1.2, ease: 'back.out(3)' }, .4)
+    .from('#hero-title .wi', { yPercent: 115, autoAlpha: 0, duration: 1.4, stagger: .05 }, .6)
+    .from('[data-intro]:not(.hero-star)', { y: 20, autoAlpha: 0, duration: 1, stagger: .1 }, 1.1)
+    .from('.site-header', { y: -20, autoAlpha: 0, duration: 1 }, 1.2);
+  gsap.to('.hero-inner', { yPercent: -18, autoAlpha: .2, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+  /* Titulares */
+  document.querySelectorAll('[data-split]:not(#hero-title)').forEach(function(el){
+    gsap.from(el.querySelectorAll('.wi'), { yPercent: 115, duration: 1.2, ease: 'expo.out', stagger: .05, scrollTrigger: { trigger: el, start: 'top 85%', once: true } });
+  });
+  gsap.utils.toArray('[data-reveal]').forEach(function(el){
+    gsap.from(el, { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+  });
+
+  var mm = gsap.matchMedia();
+
+  /* Cielo de productos: el telescopio se enfoca y las estrellas se encienden */
+  mm.add('(min-width: 821px)', function(){
+    var tl = gsap.timeline({ scrollTrigger: { trigger: '[data-map]', start: 'top 70%', once: true } });
+    tl.from('.lens', { scale: .75, autoAlpha: 0, duration: 1.4, ease: 'expo.out' }, 0)
+      .from('[data-ticks]', { rotation: -120, duration: 1.8, ease: 'expo.out' }, 0)
+      .from('.lens-view img.is-active', { scale: 1.6, filter: 'blur(12px)', duration: 1.6, ease: 'expo.out' }, .1)
+      .from(gsap.utils.shuffle(gsap.utils.toArray('.scope .star')), { scale: 0, autoAlpha: 0, duration: .7, stagger: .08, ease: 'back.out(3)' }, .4)
+      .from('.map-name, .lens-info', { y: 20, autoAlpha: 0, duration: 1, stagger: .1 }, .8);
+  });
+
+  /* Órbita: los planetas giran con el scroll */
+  mm.add('(min-width: 1025px)', function(){
+    var sec = document.querySelector('[data-orbit-sec]');
+    sec.classList.add('js-orbit');
+    var spin = document.querySelector('[data-spin]');
+    var planets = gsap.utils.toArray('[data-planet]');
+    var items = sec.querySelectorAll('.orbit-list li');
+    var R = function(){ return document.querySelector('.orbit').offsetWidth / 2; };
+    gsap.set(planets, { left: '50%', top: '50%' });
+    function place(rot){
+      planets.forEach(function(p, i){
+        var a = (i * 120 - 90 + rot) * Math.PI / 180;
+        gsap.set(p, { x: Math.cos(a) * R(), y: Math.sin(a) * R() });
+      });
+    }
+    var state = { rot: 0 }; place(0);
+    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top top', end: '+=180%', pin: true, scrub: 1, anticipatePin: 1,
+        onUpdate: function(self){ var idx = Math.min(2, Math.floor(self.progress * 3)); items.forEach(function(li, i){ li.classList.toggle('is-on', i === idx); }); } } })
+      .to(state, { rot: -240, ease: 'none', onUpdate: function(){ place(state.rot); } });
+    gsap.to('.orbit-ring--2', { rotation: 180, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: '+=180%', scrub: true } });
+    return function(){ sec.classList.remove('js-orbit'); };
+  });
+  mm.add('(max-width: 1024px)', function(){
+    var planets = gsap.utils.toArray('[data-planet]');
+    var R = function(){ return document.querySelector('.orbit').offsetWidth / 2; };
+    gsap.set(planets, { left: '50%', top: '50%' });
+    planets.forEach(function(p, i){ var a = (i * 120 - 90) * Math.PI / 180; gsap.set(p, { x: Math.cos(a) * R(), y: Math.sin(a) * R() }); });
+    gsap.to('[data-spin]', { rotation: 360, duration: 60, repeat: -1, ease: 'none' });
+    gsap.to(planets, { rotation: -360, duration: 60, repeat: -1, ease: 'none' });
+  });
+
+  /* Trayectoria: el cometa baja por la línea */
+  var path = document.querySelector('[data-path]');
+  path.classList.add('js-path');
+  var pt = gsap.timeline({ scrollTrigger: { trigger: path, start: 'top 60%', end: 'bottom 60%', scrub: .6 } });
+  pt.to('.path-fill', { scaleY: 1, ease: 'none' }, 0)
+    .to('.comet', { y: function(){ return path.offsetHeight - 16; }, ease: 'none' }, 0);
+
+  /* Fondos: movimiento sutil con el scroll */
+  gsap.to('[data-celestial]', { rotation: 8, scale: 1.08, ease: 'none', scrollTrigger: { trigger: '#cielo', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.utils.toArray('.has-art .neb').forEach(function(n, i){
+    gsap.fromTo(n, { yPercent: -8 }, { yPercent: 8 + (i % 3) * 4, ease: 'none', scrollTrigger: { trigger: n.closest('section'), start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+  // Destello: gira de forma continua; el scroll lo acelera. Se pausa fuera de pantalla.
+  var spinFx = gsap.to('[data-fx]', { rotation: 360, duration: 80, repeat: -1, ease: 'none' });
+  var spinFd = gsap.to('[data-fd]', { rotation: -360, duration: 110, repeat: -1, ease: 'none' });
+  var spinRing = gsap.to('[data-bigring]', { rotation: -360, duration: 140, repeat: -1, ease: 'none' });
+  var spinFt = gsap.to('[data-ft]', { rotation: 360, duration: 200, repeat: -1, ease: 'none' });
+  var spinFv = gsap.to('[data-fv]', { rotation: -360, duration: 150, repeat: -1, ease: 'none' });
+  var spins = [spinFx, spinFd, spinRing, spinFt, spinFv];
+  ScrollTrigger.create({ trigger: '#orbita', start: 'top bottom', end: 'bottom top',
+    onToggle: function(self){ spins.forEach(function(t){ self.isActive ? t.play() : t.pause(); }); },
+    onUpdate: function(self){
+      var boost = 1 + Math.min(Math.abs(self.getVelocity()) / 250, 8);
+      spins.forEach(function(t){ gsap.to(t, { timeScale: boost, duration: .3, overwrite: true, onComplete: function(){ gsap.to(t, { timeScale: 1, duration: 1.2 }); } }); });
+    } });
+  gsap.from('.flare', { scale: .6, autoAlpha: 0, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: '#orbita', start: 'top 70%', once: true } });
+
+  /* Footer: el logo asoma tras el horizonte */
+  gsap.from('.f-mark img', { yPercent: 60, ease: 'none', scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: true } });
+  gsap.from('.f-horizon', { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: true } });
+  gsap.from('.f-top > *', { y: 30, autoAlpha: 0, duration: 1, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.footer', start: 'top 85%', once: true } });
+
+  ScrollTrigger.addEventListener('refresh', function(){ if (window.__alignFlare) window.__alignFlare(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
